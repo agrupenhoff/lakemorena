@@ -1,0 +1,202 @@
+---
+title: "lake_morena_round2"
+author: "Ashley Grupenhoff"
+date: "6/5/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r cars}
+library(dplyr)
+library(corpcor)
+library(tidyverse)
+  library(tinytex)
+          options(tinytex.verbose=TRUE)
+library(tibble)
+library(dplyr)
+library(ggplot2)
+library(vegan)
+library(knitr)
+library(kableExtra)
+library(rio)
+library(ape)
+library(devtools)
+library(Hotelling)
+library(corpcor)
+
+          
+```
+
+## LAKE MORENA FUELS
+
+```{r}
+
+LM_fuels <- read_csv("C:/Users/ashle/Documents/R/lakemorena/lakemorena/data/raw/fuels_raw.csv")
+
+LM_fuels
+
+
+
+```
+
+## LAKE MORENA SPP COMP
+
+```{r}
+LM_transect <- read_csv("C:/Users/ashle/Documents/R/lakemorena/lakemorena/data/raw/transect_sum_raw.csv")
+LM_species <- read_csv("C:/Users/ashle/Documents/R/lakemorena/lakemorena/data/raw/Species_lifeform.csv")
+
+LM_lifeform <- read_csv("C:/Users/ashle/Documents/R/lakemorena/lakemorena/data/raw/Lifeform_raw.csv")
+
+
+
+LM_transect <- LM_transect %>% 
+  unite("plot_time", plot_id, treatment, time, remove=FALSE) %>% 
+  select(-c(plot_id,treatment,time)) %>% 
+  mutate_all(~replace(., is.na(.),0))
+LM_transect <- LM_transect %>% 
+  mutate_all(~replace(., is.na(.),0))
+
+
+
+export(LM_transect, "C:/Users/ashle/Documents/R/lakemorena/lakemorena/data/clean/Transect_LM.csv")
+
+LM_transect_long <- pivot_longer(LM_transect, cols=-plot_time, names_to="species",values_to = "count") %>% 
+  separate(plot_time, c("plot_id", "trt", "time"), sep="_") %>% 
+  unite("trt_time", trt, time) %>% 
+  select(-plot_id)
+
+LM_pre_transect <- read_csv("C:/Users/ashle/Documents/R/lakemorena/lakemorena/data/clean/LM_transect_pregoat.csv") 
+LM_post_transect <- read_csv("C:/Users/ashle/Documents/R/lakemorena/lakemorena/data/clean/LM_transect_postgoat.csv") 
+
+
+
+
+#diversity shannons
+shann_LM_pre <- diversity(LM_pre_transect)
+shann_LM_post <- diversity(LM_post_transect)
+
+#diversity simpsons
+simp_LM_pre <- diversity(LM_pre_transect, "simpson")
+simp_LM_post <- diversity(LM_post_transect, "simpson")
+
+par(mfrow = c(2, 2))  # to generate panels with 1 row of 2 graphs
+hist(shann_LM_pre)
+hist(shann_LM_post)
+hist(simp_LM_pre)
+hist(simp_LM_post)
+
+#evenness
+even_pre <- shann_LM_pre/log(specnumber(LM_pre_transect))
+even_post <- shann_LM_post/log(specnumber(LM_post_transect))
+par(mfrow = c(2, 2))  # to generate panels with 1 row of 2 graphs
+hist(even_pre)
+hist(even_post)
+
+#pairwise distance measures between sites
+par(mfrow = c(2, 2))
+bray1 = vegdist(LM_pre_transect, "bray")
+bray2 = vegdist(LM_post_transect, "bray")
+gower1 = vegdist(LM_pre_transect, "gower")
+gower2 = vegdist(LM_post_transect, "gower")
+hist(bray1)
+hist(bray2)
+hist(gower1)
+hist(gower2)
+
+#rarefaction plots
+sp.abund.pre <- rowSums(LM_pre_transect)
+sp.abund.post <- rowSums(LM_post_transect)
+raremax_pre <- min(rowSums(LM_pre_transect))
+raremax_post <- min(rowSums(LM_post_transect))
+
+Srare_pre <- rarefy(LM_pre_transect, raremax_pre)
+par(mfrow = c(1, 2))
+plot(sp.abund.pre, Srare_pre, xlab = "Observed No. of Species", ylab = "Rarefied No. of Species")
+rarecurve(LM_pre_transect, col = "blue")
+
+Srare_post <- rarefy(LM_post_transect, raremax_post)
+par(mfrow = c(1, 2))
+plot(sp.abund.post, Srare_post, xlab = "Observed No. of Species", ylab = "Rarefied No. of Species")
+rarecurve(LM_post_transect, col = "blue")
+
+#initial ordination
+
+comm.bc.mds <- metaMDS(LM_pre_transect, dist="bray")
+stressplot(comm.bc.mds)
+treat=c(rep())
+ordiplot(comm.bc.mds, display = "species")
+ordiplot()
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+
+LM_cover <- read_csv("C:/Users/ashle/Documents/R/lakemorena/lakemorena/data/raw/cover_lifeform_raw.csv")
+LM_richness <- read_csv("C:/Users/ashle/Documents/R/lakemorena/lakemorena/data/raw/richness_lifeform_raw.csv")
+
+LM_richness_group <- LM_richness %>% 
+  group_by(treatment,time) %>% 
+  unite("trt_time",plot_id,treatment,time)  %>% 
+  pivot_longer(cols= -trt_time, names_to = "lifeform", values_to = "richness") %>% 
+  separate(trt_time, c("plot_id","treatment","time"), sep="_")
+
+LM_richness_group$time <- factor(LM_richness_group$time, levels=c("pregoat", "postgoat"))
+
+
+LM_richness_goats_plot <- LM_richness_group %>% 
+  filter(treatment == "goats") %>% 
+ggplot(data=LM_richness_group, mapping=aes(x=lifeform, y=richness, fill=time))+
+  geom_boxplot()+
+  scale_fill_manual(values=c("#69b3a2", "#404080")) 
+
+LM_richness_plot <- LM_richness_group %>% 
+  filter(time == "pregoat",
+         lifeform == c('exotic_herb','native_herb','shrub_d','shrub_l')) %>% 
+  ggplot(data=LM_richness_group, mapping=aes(x=lifeform, y=richness, fill=treatment))+
+  geom_boxplot()+
+  scale_fill_manual(values=c("#69b3a2", "#404080")) 
+
+LM_richness_plot
+ggsave("C:/Users/ashle/Documents/R/lakemorena/lakemorena/data/images/richness_lifeform_goats.png" ,LM_richness_goats_plot)
+
+```
+
+> NMDS
+
+```{r}
+
+
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
