@@ -177,17 +177,6 @@ ggsave("C:/Users/ashle/Documents/R/lakemorena/lakemorena/data/images/richness_li
 
 ```
 
-> NMDS
-
-```{r}
-
-
-
-
-```
-
-
-
 
 
 
