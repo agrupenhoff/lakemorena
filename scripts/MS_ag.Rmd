@@ -15,7 +15,6 @@ library(dplyr)
 library(corpcor)
 library(tidyverse)
   library(tinytex)
-          options(tinytex.verbose=TRUE)
 library(tibble)
 library(dplyr)
 library(ggplot2)
@@ -27,28 +26,18 @@ library(ape)
 library(devtools)
 library(Hotelling)
 library(corpcor)
+library(wesanderson)
 
           
 ```
 
-## LAKE MORENA FUELS
 
-```{r}
-
-LM_fuels <- read_csv("C:/Users/ashle/Documents/R/lakemorena/lakemorena/data/raw/fuels_raw.csv")
-
-LM_fuels
-
-
-
-```
 
 ## LAKE MORENA SPP COMP
 
 ```{r}
 LM_transect <- read_csv("C:/Users/ashle/Documents/R/lakemorena/lakemorena/data/raw/transect_sum_raw.csv")
 LM_species <- read_csv("C:/Users/ashle/Documents/R/lakemorena/lakemorena/data/raw/Species_lifeform.csv")
-
 LM_lifeform <- read_csv("C:/Users/ashle/Documents/R/lakemorena/lakemorena/data/raw/Lifeform_raw.csv")
 
 
@@ -123,13 +112,6 @@ par(mfrow = c(1, 2))
 plot(sp.abund.post, Srare_post, xlab = "Observed No. of Species", ylab = "Rarefied No. of Species")
 rarecurve(LM_post_transect, col = "blue")
 
-#initial ordination
-
-comm.bc.mds <- metaMDS(LM_pre_transect, dist="bray")
-stressplot(comm.bc.mds)
-treat=c(rep())
-ordiplot(comm.bc.mds, display = "species")
-ordiplot()
 
 
 ```
