@@ -1,3 +1,6 @@
+
+##Library
+
 library(vegan)
 library(ggplot2)
 library(grid)
@@ -17,7 +20,6 @@ library(ape)
 library(devtools)
 library(Hotelling)
 library(corpcor)
-library(wesanderson)
 library(ggpubr)
 
 #NMDS CREATION PREGOAT: fuel break vs. adjacent wildlands
@@ -111,7 +113,7 @@ spps2$species <- factor(spps2$species) #otherwise factor doesn't drop unused lev
               
                           #p = 0.005159; assumes assumption of homogeneity! 
               
-              
+            
               
               
               
