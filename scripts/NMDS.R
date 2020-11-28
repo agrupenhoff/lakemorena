@@ -2,6 +2,23 @@ library(vegan)
 library(ggplot2)
 library(grid)
 library(phyloseq)
+library(dplyr)
+library(corpcor)
+library(tidyverse)
+library(tinytex)
+library(tibble)
+library(dplyr)
+library(ggplot2)
+library(vegan)
+library(knitr)
+library(kableExtra)
+library(rio)
+library(ape)
+library(devtools)
+library(Hotelling)
+library(corpcor)
+library(wesanderson)
+library(ggpubr)
 
 #NMDS CREATION PREGOAT: fuel break vs. adjacent wildlands
 
@@ -32,16 +49,20 @@ NMDS <- metaMDS(pregoat, distance="bray", k=2) #no transformation of species dat
 NMDS
             #stress = 0.1857329
 
-MDS1 = NMDS$points[,1]
-MDS2 = NMDS$points[,2]
-NMDS = data.frame(MDS1 = MDS1, MDS2 = MDS2, plot=pregoat.env$plot, trt = pregoat.env$trt)
-head(NMDS)
+#env.fit
+pregoat.envfit <- envfit(NMDS, env=pregoat.env, perm=999) #standard envfit
+pregoat.envfit
 
+#data for plot
+pregoat.NMDS <- pregoat.env
+pregoat.NMDS$NMDS1 <- NMDS$points[,1]
+pregoat.NMDS$NMDS2 <- NMDS$points[,2]
+head(pregoat.NMDS)
 
 
 #species data
 stems<-colSums(pregoat) #total abundances for each species
-spps <- data.frame(scores(meta.nmds.pregoat, display = "species")) #dataframe of species scoes for plotting
+spps <- data.frame(scores(NMDS, display = "species")) #dataframe of species scoes for plotting
 spps$species <- row.names(spps) # making a column with species names
 spps$colsums <- stems #adding the colSums from above
 spps<-spps[!is.na(spps$NMDS1) & !is.na(spps$NMDS2),] #removes NAs
@@ -55,8 +76,8 @@ spps2$species <- factor(spps2$species) #otherwise factor doesn't drop unused lev
 #plot nice with ggplot - difference between control and goats
               
               #plot
-              NMDS_treatment <- ggplot(data=NMDS, aes(x=MDS1, y=MDS2)) +
-                geom_point(aes(MDS1,MDS2,color=factor(trt),shape = factor(trt)),size=3)+
+              NMDS_treatment <- ggplot(data=pregoat.NMDS, aes(x=NMDS1, y=NMDS2)) +
+                geom_point(aes(NMDS1,NMDS2,color=factor(trt),shape = factor(trt)),size=3)+
                 coord_fixed()+
                 theme_classic()+
                 theme(panel.background = element_rect(fill = NA, colour = "black", size = 1, linetype = "solid"))+
@@ -64,7 +85,7 @@ spps2$species <- factor(spps2$species) #otherwise factor doesn't drop unused lev
                 theme(legend.position = "right", legend.text = element_text(size = 12), legend.title = element_text(size = 12), axis.text = element_text(size = 10))+ # add legend at right of plot
                 labs(title = "Ordination plot")+
                 stat_ellipse(aes(color=trt),type="norm") +
-                geom_text(data=spps2, aes(x=NMDS1, y=NMDS2,label=species),alpha=0.5)  #add species label of most abundant species
+                geom_text(data=spps2, aes(x=NMDS1, y=NMDS2,label=species),alpha=0.5)  #add species label of most abundant species (spp2; replace with spp 1 for ALLL species)
                 
               NMDS_treatment
               
@@ -78,15 +99,17 @@ spps2$species <- factor(spps2$species) #otherwise factor doesn't drop unused lev
               
               #Bootstrapping and testing for differences between the groups 
               #Permanova test
-              fit <- adonis(com.pregoat ~ trt, data=Env.pregoat, permutations=999, method="bray")
+              fit <- adonis(pregoat ~ trt, data=pregoat.env, permutations=999, method="bray")
               fit
               
               #p-value = 0.001 therefore we can assume these are different
               
               #####################
               #Check assumption of homogeneity of multivariate dispersion
-              distances_data <- vegdist(com.pregoat)
-              anova(betadisper(distances_data, Env.pregoat$trt))
+              distances_data <- vegdist(pregoat)
+              anova(betadisper(distances_data, pregoat.env$trt))
+              
+                          #p = 0.005159; assumes assumption of homogeneity! 
               
               
               
@@ -94,7 +117,7 @@ spps2$species <- factor(spps2$species) #otherwise factor doesn't drop unused lev
               
 #########################################################################################################
 ################################################################################################              #########
-##again but for ALL
+##again but include post goat data
               
               Transect_all <- Transect_separate %>% 
                 unite("treatment", trt, time)
