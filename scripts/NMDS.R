@@ -28,11 +28,12 @@ library(ggpubr)
 Transect_LM <- import("C:/Users/ashle/Documents/R/lakemorena/lakemorena/data/clean/Transect_LM.csv", header=TRUE)
 
 Transect_separate <- Transect_LM %>% 
-  separate(plot_time, c("plot", "trt","time"),"_")
+  separate(plot_time, c("plot", "trt","time"),"_") 
   
 Transect_pregoat <- Transect_separate %>% 
-  filter(time == "pregoat")
-
+  mutate(trt = replace(trt, which(trt == "goats"),"fuelbreak")) %>% 
+  filter(time == "pregoat") 
+  
 
 
 #make community matrix on which to base ordination
