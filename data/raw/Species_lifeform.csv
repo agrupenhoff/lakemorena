@@ -13,16 +13,16 @@ B(MALA),SH
 P(MALA),SH
 MAMA,FB
 Peony,FB
-Plagio,FB
-Steph,FB
+PLAGIO,FB
+STEPH,FB
 VUMY,GR-Exotic
-Arcto ,SH
-B(Arcto) ,SH
-P(Arcto) ,Sh
+ARCTO,SH
+B(ARCTO) ,SH
+P(ARCTO) ,Sh
 ARTR,SH
 B(ARTR),SH
 P(ARTR),SH
-Bright Eyes,FB
+BrightEyes,FB
 CEBE,SH
 B(CEBE),SH
 P(CEBE),SH
@@ -39,23 +39,22 @@ P(ERCO),SH
 ERFA,SH
 B(ERFA),SH
 P(ERFA),SH
-ericameria,SH
-B(ericameria),SH
-P(ericameria),SH
+ERIC,SH
+B(ERIC),SH
+P(ERIC),SH
 Erigeron,FB
 GAAN,FB
 Garrya,SH
 B(Garrya),SH
 P(Garrya),SH
-Gerea,FB
 LOSU,FB
 B(LOSU),FB
 P(LOSU),FB
-Lotus sp.,FB
+LOTUS,FB
 PECE,FB
-Penst,FB
-Phacelia,FB
-Poa,GR
+PENST,FB
+PHACELIA,FB
+POA,GR
 PRIL,SH
 B(PRIL),SH
 P(PRIL),SH
@@ -68,7 +67,7 @@ P(QU3 & QU5),SH
 QUAG,TR
 B(QUAG),TR
 P(QUAG),TR
-Ran1,FB
+RAN1,FB
 RHAR,SH
 B(RHAR),SH
 P(RHAR),SH
@@ -87,28 +86,28 @@ ACMI,FB
 ADSP,SH
 B(ADSP),SH
 P(ADSP),SH
-Arcto G,SH
-B(Arcto G),SH
-P(Arcto G),SH
+ArctoG,SH
+B(ArctoG),SH
+P(ArctoG),SH
 ARPU,SH
 B(ARPU),SH
 P(ARPU),SH
 ASDO,FB
-Avena,GR-Exotic
+AVENA,GR-Exotic
 AWL ,FB
 BRHO,GR-Exotic
 BRTO,FB-Exotic
-Cea sp.,SH
-B(Cea sp.),SH
-P(Cea sp.),SH
+CEANOTHUS,SH
+B(CEANOTHUS),SH
+P(CEANOTHUS),SH
 Cholla,SH
 B(Cholla),SH
 P(Cholla),SH
 Clem,FB
-Clover1,FB
+CLOVER,FB
 CLPA,FB
-Collinsia,FB
-Crypt,FB
+COLLINSIA,FB
+CRYPT,FB
 Cuscuta,FB
 Erio ann,FB
 Fern,FB
@@ -122,15 +121,12 @@ Lessingia,FB
 LR,FB
 LUCO,FB
 MAFA,SH
-Melica sp.,GR
+MELICA,GR
 Nemophila,FB
 Onagraceae an,FB
-OPP CAT,FB
+OPPCAT,FB
 Scroph,FB
 Spike1,FB
-TECO,SH
-This1,FB
-Tiny senecio,FB
 TP,FB
 URLI,FB
 Juncus,GR
