@@ -1,132 +1,132 @@
-Species,Lifeform
-Herb,FB
-P(herb),FB
-ADFA,SH
-B(ADFA),SH
-P(ADFA),SH
-BRDE,FB
-BRDI,GR-Exotic
-BRMA,GR-Exotic
-BRTE,GR-Exotic
-MALA,SH
-B(MALA),SH
-P(MALA),SH
-MAMA,FB
-Peony,FB
-PLAGIO,FB
-STEPH,FB
-VUMY,GR-Exotic
-ARCTO,SH
-B(ARCTO) ,SH
-P(ARCTO) ,Sh
-ARTR,SH
-B(ARTR),SH
-P(ARTR),SH
-BrightEyes,FB
-CEBE,SH
-B(CEBE),SH
-P(CEBE),SH
-CELU,SH
-B(CELU),SH
-P(CELU),SH
-CEPE,SH
-B(CEPE),SH
-P(CEPE),SH
-ERCI,FB-Exotic
-ERCO,SH
-B(ERCO),SH
-P(ERCO),SH
-ERFA,SH
-B(ERFA),SH
-P(ERFA),SH
-ERIC,SH
-B(ERIC),SH
-P(ERIC),SH
-Erigeron,FB
-GAAN,FB
-Garrya,SH
-B(Garrya),SH
-P(Garrya),SH
-LOSU,FB
-B(LOSU),FB
-P(LOSU),FB
-LOTUS,FB
-PECE,FB
-PENST,FB
-PHACELIA,FB
-POA,GR
-PRIL,SH
-B(PRIL),SH
-P(PRIL),SH
-QU1 & QU4,TR
-B(QU1 & QU4),TR
-P(QU1 & QU4),TR
-QU3 & QU5,SH
-B(QU3 & QU5),SH
-P(QU3 & QU5),SH
-QUAG,TR
-B(QUAG),TR
-P(QUAG),TR
-RAN1,FB
-RHAR,SH
-B(RHAR),SH
-P(RHAR),SH
-RHIL,SH
-B(RHIL),SH
-P(RHIL),SH
-Salsola,FB-Exotic
-Salvia ,FB
-Yucca ,SH
-B(Yucca) ,SH
-P(Yucca) ,SH
-ACGL,SH
-B(ACGL),SH
-P(ACGL),SH
-ACMI,FB
-ADSP,SH
-B(ADSP),SH
-P(ADSP),SH
-ArctoG,SH
-B(ArctoG),SH
-P(ArctoG),SH
-ARPU,SH
-B(ARPU),SH
-P(ARPU),SH
-ASDO,FB
-AVENA,GR-Exotic
-AWL ,FB
-BRHO,GR-Exotic
-BRTO,FB-Exotic
-CEANOTHUS,SH
-B(CEANOTHUS),SH
-P(CEANOTHUS),SH
-Cholla,SH
-B(Cholla),SH
-P(Cholla),SH
-Clem,FB
-CLOVER,FB
-CLPA,FB
-COLLINSIA,FB
-CRYPT,FB
-Cuscuta,FB
-Erio ann,FB
-Fern,FB
-HEAR,SH
-B(HEAR),SH
-P(HEAR),SH
-Hordeum 2,GR-Exotic
-ISHA,FB
-KETE,SH
-Lessingia,FB
-LR,FB
-LUCO,FB
-MAFA,SH
-MELICA,GR
-Nemophila,FB
-Onagraceae an,FB
-OPPCAT,FB
-Scroph,FB
-Spike1,FB
-TP,FB
-URLI,FB
-Juncus,GR
+Species,Lifeform,Status
+ACGL,SH,Live
+ACMI,FB,Live
+ADFA,SH,Live
+ADSP,SH,Live
+ARCTO,SH,Live
+ArctoG,SH,Live
+ARPU,SH,Live
+ARTR,SH,Live
+ASDO,FB,Live
+AVENA,GR-Exotic,Live
+AWL ,FB,Live
+B(ACGL),SH,Live
+B(ADFA),SH,Live
+B(ADSP),SH,Live
+B(ARCTO) ,SH,Live
+B(ArctoG),SH,Live
+B(ARPU),SH,Live
+B(ARTR),SH,Live
+B(CEANOTHUS),SH,Live
+B(CEBE),SH,Live
+B(CELU),SH,Live
+B(CEPE),SH,Live
+B(Cholla),SH,Live
+B(ERCO),SH,Live
+B(ERFA),SH,Live
+B(ERIC),SH,Live
+B(Garrya),SH,Live
+B(HEAR),SH,Live
+B(LOSU),FB,Live
+B(MALA),SH,Live
+B(PRIL),SH,Live
+B(QUEG),TR,Live
+B(QUBE),SH,Live
+B(QUAG),TR,Live
+B(RHAR),SH,Live
+B(RHIL),SH,Live
+B(Yucca) ,SH,Live
+BRDE,FB,Live
+BRDI,GR-Exotic,Live
+BRHO,GR-Exotic,Live
+BrightEyes,FB,Live
+BRMA,GR-Exotic,Live
+BRTE,GR-Exotic,Live
+BRTO,FB-Exotic,Live
+CEANOTHUS,SH,Live
+CEBE,SH,Live
+CELU,SH,Live
+CEPE,SH,Live
+Cholla,SH,Live
+Clem,FB,Live
+CLOVER,FB,Live
+CLPA,FB,Live
+COLLINSIA,FB,Live
+CRYPT,FB,Live
+Cuscuta,FB,Live
+ERCI,FB-Exotic,Live
+ERCO,SH,Live
+ERFA,SH,Live
+ERIC,SH,Live
+Erigeron,FB,Live
+Erio ann,FB,Live
+Fern,FB,Live
+GAAN,FB,Live
+Garrya,SH,Live
+HEAR,SH,Live
+Herb,FB,Live
+Hordeum 2,GR-Exotic,Live
+ISHA,FB,Live
+Juncus,GR,Live
+KETE,SH,Live
+Lessingia,FB,Live
+LOSU,FB,Live
+LOTUS,FB,Live
+LR,FB,Live
+LUCO,FB,Live
+MAFA,SH,Live
+MALA,SH,Live
+MAMA,FB,Live
+MELICA,GR,Live
+Nemophila,FB,Live
+Onagraceae an,FB,Live
+OPPCAT,FB,Live
+P(ACGL),SH,Dead
+P(ADFA),SH,Dead
+P(ADSP),SH,Dead
+P(ARCTO) ,Sh,Dead
+P(ArctoG),SH,Dead
+P(ARPU),SH,Dead
+P(ARTR),SH,Dead
+P(CEANOTHUS),SH,Dead
+P(CEBE),SH,Dead
+P(CELU),SH,Dead
+P(CEPE),SH,Dead
+P(Cholla),SH,Dead
+P(ERCO),SH,Dead
+P(ERFA),SH,Dead
+P(ERIC),SH,Dead
+P(Garrya),SH,Dead
+P(HEAR),SH,Dead
+P(herb),FB,Dead
+P(LOSU),FB,Dead
+P(MALA),SH,Dead
+P(PRIL),SH,Dead
+P(QUEG),TR,Dead
+P(QUBE),SH,Dead
+P(QUAG),TR,Dead
+P(RHAR),SH,Dead
+P(RHIL),SH,Dead
+P(Yucca) ,SH,Dead
+PECE,FB,Live
+PENST,FB,Live
+Peony,FB,Live
+PHACELIA,FB,Live
+PLAGIO,FB,Live
+POA,GR,Live
+PRIL,SH,Live
+QU1 & QU4,TR,Live
+QU3 & QU5,SH,Live
+QUAG,TR,Live
+RAN1,FB,Live
+RHAR,SH,Live
+RHIL,SH,Live
+Salsola,FB-Exotic,Live
+Salvia ,FB,Live
+Scroph,FB,Live
+Spike1,FB,Live
+STEPH,FB,Live
+TP,FB,Live
+URLI,FB,Live
+VUMY,GR-Exotic,Live
+Yucca ,SH,Live

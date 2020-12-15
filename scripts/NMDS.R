@@ -25,9 +25,26 @@ library(ggpubr)
 #NMDS CREATION PREGOAT: fuel break vs. adjacent wildlands
 
 #import abundance data
-Transect_LM <- import("C:/Users/ashle/Documents/R/lakemorena/lakemorena/data/clean/Transect_LM.csv", header=TRUE)
+#Transect_LM <- import("data/clean/Transect_LM.csv", header=TRUE)
+#Lifeform <- import("data/raw/Species_lifeform.csv", header=TRUE)
 
-Transect_separate <- Transect_LM %>% 
+#add species status and return only Live
+#Transect_LM_live <- Transect_LM %>% 
+# pivot_longer(cols=-plot_time, names_to = "Species", values_to = "count") 
+#Transect_LM_live <- left_join(Transect_LM_live,Lifeform, by="Species") 
+
+#create matrix for only live species
+#Transect_LM_live <- Transect_LM_live %>% 
+#  filter(Status == "Live") %>% 
+#  select(plot_time, Species, count) %>% 
+#  pivot_wider(names_from = "Species", values_from="count")
+
+#export(Transect_LM_live,"data/clean/Transect_LM_live.csv" )
+
+Transect_LM_live <- import("data/clean/Transect_LM_live.csv", header=TRUE)
+
+
+Transect_separate <- Transect_LM_live %>% 
   separate(plot_time, c("plot", "trt","time"),"_") 
   
 Transect_pregoat <- Transect_separate %>% 
@@ -50,7 +67,7 @@ pregoat = pregoat[,good_samples]
 set.seed(123) #reproduce same results
 NMDS <- metaMDS(pregoat, distance="bray", k=2) #no transformation of species data is made here prior to bray curtis dissimilarities being calculated. 
 NMDS
-            #stress = 0.1857329
+            #stress = 0.1919164
 
 #env.fit
 pregoat.envfit <- envfit(NMDS, env=pregoat.env, perm=999) #standard envfit
