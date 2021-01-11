@@ -19,32 +19,49 @@ library(ggpubr)
 
 
 
-#LM_cover <- read_csv("C:/Users/ashle/Documents/R/lakemorena/lakemorena/data/raw/cover_lifeform_raw.csv")
-#LM_richness <- read_csv("C:/Users/ashle/Documents/R/lakemorena/lakemorena/data/raw/richness_lifeform_raw.csv")
-#LM_transect <- read_csv("C:/Users/ashle/Documents/R/lakemorena/lakemorena/data/clean/Transect_LM.csv")
 
+#LM_cover <- read_csv("data/raw/cover_lifeform_raw.csv")
+#LM_richness <- read_csv("data/raw/richness_lifeform_raw.csv")
+#LM_transect <- read_csv("data/clean/Transect_LM.csv")
+
+#LM_richness <- LM_richness %>% 
+#  mutate(total = rowSums(.[4:9]))
+#LM_cover <- LM_cover %>% 
+#  mutate(total = rowSums(.[4:8]))
+
+#export(LM_richness,"data/raw/richness_lifeform_raw.csv" )
+#export(LM_cover,"data/raw/cover_lifeform_raw.csv" )
 
 ## organize data all and combine
 
 #LM_cover <- LM_cover %>% 
- # unite("plot_trt",plot_id,treatment,time) %>% 
-  #pivot_longer(cols= -plot_trt, names_to = "lifeform", values_to = "cover") 
+# unite("plot_trt",plot_id,treatment,time) %>% 
+#pivot_longer(cols= -plot_trt, names_to = "lifeform", values_to = "cover") 
 #LM_cover <- LM_cover %>% 
- # unite("plot_trt_life",plot_trt, lifeform)
+#  unite("plot_trt_life",plot_trt, lifeform)
   
 
 #LM_richness <- LM_richness %>% 
 #  unite("plot_trt",plot_id,treatment,time) %>% 
-#  pivot_longer(cols= -plot_trt, names_to = "lifeform", values_to = "richness") 
+ # pivot_longer(cols= -plot_trt, names_to = "lifeform", values_to = "richness") 
 #LM_richness <- LM_richness %>% 
-#  unite("plot_trt_life",plot_trt, lifeform)
+ # unite("plot_trt_life",plot_trt, lifeform)
 
 #LM_rich_cover <-   left_join(LM_cover, LM_richness, by="plot_trt_life") 
 #LM_rich_cover <- LM_rich_cover %>% 
 #  pivot_longer(cols=-plot_trt_life, names_to = "cover_richness", values_to = "value") %>% 
-#  separate(plot_trt_life, c("plot_id","treatment","time","lifeform"), sep="_", extra= "merge" )
+ # separate(plot_trt_life, c("plot_id","treatment","time","lifeform"), sep="_", extra= "merge" )
 
-#LM_rich_cover$lifeform <- factor(LM_rich_cover$lifeform, levels = c("LiveTree","LiveShrub","DeadShrub","NativeHerb","ExoticHerb","TotalHerb"))
+#rename lifeform
+#LM_rich_cover$lifeform <- recode(LM_rich_cover$lifeform,
+  #                               tree_l ="LiveTree",
+  #                               shrub_l = "LiveShrub",
+  #                               shrub_d = "DeadShrub",
+  #                               native_herb= "NativeHerb",
+  #                               exotic_herb= "NonnativeHerb",
+  #                               total_herb= "TotalHerb",
+ #                                total="Total")
+#LM_rich_cover$lifeform <- factor(LM_rich_cover$lifeform, levels = c("LiveTree","LiveShrub","DeadShrub","NativeHerb","NonnativeHerb","TotalHerb", "Total"))
 #LM_rich_cover$time <- factor(LM_rich_cover$time, levels = c("pregoat","postgoat"))
 
 #replace goats with fuel break
@@ -52,9 +69,9 @@ library(ggpubr)
 #  mutate(treatment = replace(treatment, which(treatment == "goats"),"fuelbreak"))
 
 
-#export(LM_rich_cover, "C:/Users/ashle/Documents/R/lakemorena/lakemorena/data/clean/LM_rich_cover_all.csv")
+#export(LM_rich_cover, "data/clean/LM_rich_cover_all.csv")
 
-LM_rich_cover <- import("C:/Users/ashle/Documents/R/lakemorena/lakemorena/data/clean/LM_rich_cover_all.csv")
+LM_rich_cover <- import("data/clean/LM_rich_cover_all.csv")
 
 
 
@@ -65,10 +82,11 @@ LM_rich_cover <- import("C:/Users/ashle/Documents/R/lakemorena/lakemorena/data/c
 LM_pregoat <- LM_rich_cover %>% 
   filter(time =="pregoat",
          lifeform == "DeadShrub" |
-          lifeform == "ExoticHerb"|
+          lifeform == "NonnativeHerb"|
            lifeform == "LiveShrub"|
            lifeform == "NativeHerb"|
-           lifeform == "LiveTree") 
+           lifeform == "LiveTree"|
+           lifeform == "Total") 
 
 
 
@@ -92,19 +110,22 @@ LM_pregoat_plot <- ggplot(data=LM_pregoat, mapping = aes(x=lifeform, y=value, fi
 LM_pregoat_plot
 
 
-ggsave("C:/Users/ashle/Documents/R/lakemorena/lakemorena/images/PREGOAT_rich_cover.png" ,LM_pregoat_plot)
+ggsave(LM_pregoat_plot,"C:/Users/ashle/Documents/R/lakemorena/lakemorena/images/PREGOAT_richcover.png")
 
 
 ###### IMPACTS OF GOAT GRAZING
 
 LM_goats <- LM_rich_cover %>% 
-  filter(treatment =="goats",
+  filter(treatment =="fuelbreak",
          lifeform == "DeadShrub" |
-           lifeform == "ExoticHerb"|
+           lifeform == "NonnativeHerb"|
            lifeform == "LiveShrub"|
            lifeform == "NativeHerb"|
-           lifeform == "LiveTree") 
+           lifeform == "LiveTree" |
+           lifeform == "Total") 
 
+#make sure pregoat comes first
+LM_goats$time <- factor(LM_goats$time, levels = c("pregoat","postgoat"))
 #add p-values comparing groups; specify comparisons I want
 my_comparisons <- list(c("pregoat","postgoat"))
 
